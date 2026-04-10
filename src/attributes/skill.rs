@@ -12,6 +12,16 @@ fn sub_skill(first: u8, second: u8) -> u8 {
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub struct Skill(u8);
 
+impl Skill {
+	pub fn as_u8(&self) -> u8 {
+		self.0
+	}
+
+	pub fn as_u16(&self) -> u16 {
+		self.0 as u16
+	}
+}
+
 impl From<u8> for Skill {
 	fn from(value: u8) -> Self {
 		Self(validate_skill(value))
