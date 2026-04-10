@@ -3,3 +3,20 @@ pub mod characteristics;
 
 pub use skill::Skill;
 pub use characteristics::{Characteristics, CharIndex};
+
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord)]
+pub struct Information {
+	pub name: String,
+	pub occupation: String,
+	pub age: u8,
+	pub sex: Sex,
+	pub residence: String,
+	pub birthplace: String,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+pub enum Sex {
+	Male,
+	Female,
+	Other,
+}
