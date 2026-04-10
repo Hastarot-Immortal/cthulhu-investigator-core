@@ -1,13 +1,19 @@
-use crate::attributes::{Characteristics, CharIndex};
+use crate::attributes::{Characteristics, CharIndex, Information, Sex};
+use crate::loader::Loader;
 
-pub trait Dice {
+pub trait FromSeed {
+	type Seed;
+	fn from_seed(seed: Self::Seed) -> Self;
+}
+
+pub trait Dice: FromSeed {
 	fn roll_6d(&mut self) -> u8;
 	fn roll_6d_with_amount(&mut self, amount: u8) -> u8;
 	fn roll_10d(&mut self) -> u8;
 	fn roll_100d(&mut self) -> u8;
 }
 
-pub trait CharacteristicsModifier {
+pub trait CharacteristicsModifier: FromSeed {
 	fn modify_by_age(&mut self, chars: &mut Characteristics, age: u8, dice: &mut impl Dice) {
 		match age {
 			15..=19 => {
@@ -62,4 +68,15 @@ pub trait CharacteristicsModifier {
 
 	fn deduct_from_str_or_size(&mut self, points: u8, chars: &mut Characteristics);
 	fn deduct_from_str_con_or_dex(&mut self, points: u8, chars: &mut Characteristics);
+}
+
+pub trait InfoBuilder: FromSeed {
+	fn loader(self, loader: impl Loader) -> Self;
+	fn name(self, name: &str) -> Self;
+	fn occupation(self, occupation: &str) -> Self;
+	fn age(self, age: u8) -> Self;
+	fn sex(self, sex: Sex) -> Self;
+	fn residence(self, residence: &str) -> Self;
+	fn birthplace(self, birthplace: &str) -> Self;
+	fn build(&mut self) -> Information;
 }
