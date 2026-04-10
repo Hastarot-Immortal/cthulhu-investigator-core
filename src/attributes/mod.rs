@@ -1,8 +1,10 @@
 pub mod skill;
 pub mod characteristics;
+pub mod points;
 
 pub use skill::Skill;
 pub use characteristics::{Characteristics, CharIndex};
+pub use points::Points;
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord)]
 pub struct Information {
