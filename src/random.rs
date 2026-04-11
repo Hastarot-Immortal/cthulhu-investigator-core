@@ -4,7 +4,6 @@ use crate::attributes::{
 	Information, 
 	Sex
 };
-use crate::loader::{InfoLoader, OccupationLoader};
 
 pub trait FromSeed {
 	type Seed;
@@ -75,7 +74,6 @@ pub trait CharacteristicsModifier: FromSeed {
 }
 
 pub trait InfoBuilder: FromSeed {
-	fn loader<L: InfoLoader + OccupationLoader>(self, loader: L) -> Self;
 	fn name(self, name: &str) -> Self;
 	fn occupation(self, occupation: &str) -> Self;
 	fn age(self, age: u8) -> Self;
