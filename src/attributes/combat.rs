@@ -1,7 +1,7 @@
 use crate::attributes::{
 	DiceType, 
 	Characteristics, 
-	CharIndex::{Dex, Str, Siz}
+	CharsIndex::{Dex, Str, Siz}
 };
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]

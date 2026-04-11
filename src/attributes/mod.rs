@@ -5,10 +5,10 @@ pub mod info;
 pub mod combat;
 
 pub use skill::Skill;
-pub use characteristics::{Characteristics, CharIndex};
+pub use characteristics::{Characteristics, CharsIndex, CharsModifier};
 pub use points::Points;
-pub use info::{Information, Sex};
-pub use combat::Combat;
+pub use info::{Information, Sex, InfoBuilder};
+pub use combat::{Combat, DamageBonus};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub enum DiceType {

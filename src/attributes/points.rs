@@ -1,4 +1,4 @@
-use crate::attributes::{Characteristics, CharIndex::{Siz, Con, Pow}};
+use crate::attributes::{Characteristics, CharsIndex::{Siz, Con, Pow}};
 use crate::random::Dice;
 
 pub struct Points {

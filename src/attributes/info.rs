@@ -52,6 +52,16 @@ impl Information {
 	}
 }
 
+pub trait InfoBuilder {
+	fn name(self, name: &str) -> Self;
+	fn occupation(self, occupation: &str) -> Self;
+	fn age(self, age: u8) -> Self;
+	fn sex(self, sex: Sex) -> Self;
+	fn residence(self, residence: &str) -> Self;
+	fn birthplace(self, birthplace: &str) -> Self;
+	fn build(&mut self) -> Information;
+}
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub enum Sex {
 	Male,
