@@ -9,21 +9,21 @@ pub struct Information {
 }
 
 impl Information {
-	pub fn create<S: AsRef<str>>(
-		name: &S, 
-		occupation: &S, 
+	pub fn create(
+		name: String, 
+		occupation: String, 
 		age: u8, 
 		sex: Sex, 
-		residence: &S, 
-		birthplace: &S
+		residence: String, 
+		birthplace: String
 	) -> Self {
 		Self {
-			name: name.as_ref().to_string(), 
-			occupation: occupation.as_ref().to_string(), 
+			name, 
+			occupation, 
 			age, 
 			sex, 
-			residence: residence.as_ref().to_string(), 
-			birthplace: birthplace.as_ref().to_string()
+			residence, 
+			birthplace
 		}
 	}
 

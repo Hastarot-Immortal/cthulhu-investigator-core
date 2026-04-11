@@ -1,4 +1,9 @@
-use crate::attributes::{Characteristics, CharIndex, Information, Sex};
+use crate::attributes::{
+	Characteristics, 
+	CharIndex::{App, Edu}, 
+	Information, 
+	Sex
+};
 use crate::loader::Loader;
 
 pub trait FromSeed {
@@ -16,53 +21,52 @@ pub trait Dice: FromSeed {
 pub trait CharacteristicsModifier: FromSeed {
 	fn modify_by_age(&mut self, chars: &mut Characteristics, age: u8, dice: &mut impl Dice) {
 		match age {
-			15..=19 => {
+			..=19 => {
 				self.deduct_from_str_or_size(5, chars);
-				chars[CharIndex::Edu] -= 5;
+				chars[Edu] -= 5;
 			},
 			20..=39 => Self::edu_improvement_check(chars, dice),
 			40..=49 => {
 				self.deduct_from_str_con_or_dex(5, chars);
-				chars[CharIndex::App] -= 5;
+				chars[App] -= 5;
 				for _ in 0..2 {
 					Self::edu_improvement_check(chars, dice);
 				}
 			},
 			50..=59 => {
 				self.deduct_from_str_con_or_dex(10, chars);
-				chars[CharIndex::App] -= 10;
+				chars[App] -= 10;
 				for _ in 0..3 {
 					Self::edu_improvement_check(chars, dice);
 				}
 			},
 			60..=69 => {
 				self.deduct_from_str_con_or_dex(20, chars);
-				chars[CharIndex::App] -= 15;
+				chars[App] -= 15;
 				for _ in 0..4 {
 					Self::edu_improvement_check(chars, dice);
 				}
 			},
 			70..=79 => {
 				self.deduct_from_str_con_or_dex(30, chars);
-				chars[CharIndex::App] -= 20;
+				chars[App] -= 20;
 				for _ in 0..4 {
 					Self::edu_improvement_check(chars, dice);
 				}
 			},
 			80.. => {
 				self.deduct_from_str_con_or_dex(40, chars);
-				chars[CharIndex::App] -= 25;
+				chars[App] -= 25;
 				for _ in 0..4 {
 					Self::edu_improvement_check(chars, dice);
 				}
 			}
-			_ => unreachable!("Invalid age"),
 		}
 	}
 
 	fn edu_improvement_check(chars: &mut Characteristics, dice: &mut impl Dice) {
-		if dice.roll_100d() > chars[CharIndex::Edu] {
-			chars[CharIndex::Edu] += dice.roll_10d();
+		if dice.roll_100d() > chars[Edu] {
+			chars[Edu] += dice.roll_10d();
 		}
 	}
 

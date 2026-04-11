@@ -11,11 +11,11 @@ pub struct Points {
 impl Points {
 	pub fn create(chars: &Characteristics, age: u8, dice: &mut impl Dice) -> Points {
 		Self {
-			hp: (chars[Siz].as_u8() + chars[Con].as_u8()) / 10,
+			hp: (chars[Siz] + chars[Con]).as_u8() / 10,
 			sanity: chars[Pow].as_u8(),
 			magic: chars[Pow].as_u8() / 5,
 			luck: (dice.roll_6d_with_amount(3) * 5).max(match age {
-				15..=19 => dice.roll_6d_with_amount(3) * 5,
+				..=19 => dice.roll_6d_with_amount(3) * 5,
 				_ => 0,	
 			})
 		}

@@ -1,4 +1,8 @@
-use crate::attributes::{DiceType, Characteristics, CharIndex::{Dex, Str, Siz}};
+use crate::attributes::{
+	DiceType, 
+	Characteristics, 
+	CharIndex::{Dex, Str, Siz}
+};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub struct Combat {
@@ -37,19 +41,22 @@ pub enum DamageBonus {
 }
 
 fn move_rate(age: u8, chars: &Characteristics) -> u8 {
-	let mov = if (chars[Dex] < chars[Siz]) && (chars[Str] < chars[Siz]) {
+	let (dex, st, siz) = (chars[Dex], chars[Str], chars[Siz]);
+
+	let mov = if (dex < siz) && (st < siz) {
 		7
-	} else if (chars[Dex] > chars[Siz]) && (chars[Str] > chars[Siz]) {
+	} else if (dex > siz) && (st > siz) {
 		9
 	} else {
 		8
 	};
+
 	mov - match age {
 		40..=49 => 1,
 		50..=59 => 2,
 		60..=69 => 3,
 		70..=79 => 4,
-		80..=89 => 5,
+		80.. => 5,
 		_ => 0,
 	}
 }
@@ -60,8 +67,10 @@ fn damage_bonus_and_build(chars: &Characteristics) -> (DamageBonus, i8) {
 		65..=84 => (DamageBonus::Int(-1), -1),
 		85..=124 => (DamageBonus::Int(0), 0),
 		125..=164 => (DamageBonus::Dice(1, DiceType::D4), 1),
-		165..=204 => (DamageBonus::Dice(1, DiceType::D6), 1),
-		205..=284 => (DamageBonus::Dice(2, DiceType::D6), 2),
-		_ => unreachable!("Invalid sum of Strength and Size"),
-	} 
+		165..=204 => (DamageBonus::Dice(1, DiceType::D6), 2),
+		205..=284 => (DamageBonus::Dice(2, DiceType::D6), 3),
+		285..=364 => (DamageBonus::Dice(3, DiceType::D6), 4),
+		365..=444 => (DamageBonus::Dice(4, DiceType::D6), 5),
+		445.. => (DamageBonus::Dice(5, DiceType::D6), 6),
+	}
 }
