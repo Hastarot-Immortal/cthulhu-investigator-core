@@ -1,8 +1,14 @@
-pub trait Loader {
-	fn cities() -> Vec<String>;
-	fn names() -> NameList;
+pub trait OccupationLoader {
 	fn occupations() -> Vec<Occupation>;
-	fn skills_list() -> Vec<(String, u8)>;
+}
+
+pub trait InfoLoader {
+	fn names() -> NameList;
+	fn cities() -> Vec<String>;
+}
+
+pub trait SkillsLoader {
+	fn skills_list() -> Vec<SkillData>;
 }
 
 #[derive(Debug)]
@@ -47,8 +53,15 @@ pub enum SkillOption {
 
 #[derive(Debug, Clone)]
 pub struct Occupation {
-	name: String,
-	skills: Vec<SkillOption>,
-	credit_rating: (u8, u8),
-	skill_points_type: String,
+	pub name: String,
+	pub skills: Vec<SkillOption>,
+	pub credit_rating: (u8, u8),
+	pub skill_points_type: String,
+}
+
+#[derive(Debug, Clone)]
+pub struct SkillData {
+	pub name: String,
+	pub value: u8,
+	pub is_fighting_skill: bool,
 }
